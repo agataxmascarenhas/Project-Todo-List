@@ -30,6 +30,6 @@ export const Task = z.object({
   })
 export type Task = z.infer<typeof Task>
 
-export const create = (mongo: HapiMongo, movie: Task) => mongo.db
-  .collection('Todo-List')
-  .insertOne(Task)
+export const create = (mongo: HapiMongo, task: Task) => mongo.db
+.collection('Todo-List')
+.insertOne(task)
