@@ -106,7 +106,7 @@ const getSearch = Object.freeze<ServerRoute>({
 	path: '/search',
 	handler: async (req, _h) => {
 	  // get data from request
-	  const {mongo} = req
+	  const mongo = req.mongo
 	  const term = req.query.term
   
 	  // call handler (request-agnostic)
