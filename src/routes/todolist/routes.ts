@@ -3,6 +3,8 @@ import type {ServerRoute, Request} from '@hapi/hapi'
 import { getAll, getOne, removeTask} from './service'
 import { Task } from './service'
 import { create } from './service'
+import { update } from './service'
+import { search } from './service'
 
 
 /** Get All Tasks
@@ -72,10 +74,49 @@ const deleteTask = Object.freeze<ServerRoute>({
 	}
 })
 
+/**
+ * Replace a task
+ * @handle `PUT /{id}`
+ */
+const putTask = Object.freeze<ServerRoute>({
+	method: 'PUT',
+	path: '/{id}',
+	options: {
+	  validate: {
+		payload: (v: unknown) => Task.parseAsync(v),
+	  },
+	},
+	handler: async (req: Request<{Payload: Task}>, h) => {
+	  // get data from request
+	  const mongo = req.mongo
+	  const id = req.params.id
+	  const task = req.payload
+  
+	  // call handler (request-agnostic)
+	  return update(mongo, id, task)
+	},
+})
+
+/**
+ * Get all tasks
+ * @handle `GET /search`
+ */
+const getSearch = Object.freeze<ServerRoute>({
+	method: 'GET',
+	path: '/search',
+	handler: async (req, _h) => {
+	  // get data from request
+	  const {mongo} = req
+	  const term = req.query.term
+  
+	  // call handler (request-agnostic)
+	  return search(mongo, term)
+	},
+  })
 
 
 
 /**
  * Routes of the plugin `todolist`
  */
-export default [getAllTasks, getOneTask, deleteTask, postTask]
+export default [getAllTasks, getOneTask, deleteTask, postTask, putTask, getSearch]
