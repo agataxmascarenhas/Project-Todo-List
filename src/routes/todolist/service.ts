@@ -33,3 +33,32 @@ export type Task = z.infer<typeof Task>
 export const create = (mongo: HapiMongo, task: Task) => mongo.db
 .collection('Todo-List')
 .insertOne(task)
+
+export const update = (mongo: HapiMongo, id: string, task: Task) => mongo.db
+.collection('Todo-List')
+.updateOne({_id: new mongo.ObjectID(id)}, {$set: task})
+
+
+
+
+
+export const search = (mongo: HapiMongo, query: string) => mongo.db
+  .collection('Todo-List')
+  .aggregate([
+    {
+      $searchBeta: {
+        search: {
+          query: query,
+          path: 'description',
+        },
+      },
+    },
+    {$project: projection},
+    {$limit: 10},
+  ]).toArray()
+  
+  // const projection = {description: 1}
+const projection = Object.fromEntries(
+  Object.keys(Task.shape)
+    .map(k => [k, 1]),
+)
