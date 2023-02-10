@@ -13,7 +13,7 @@ import { search } from './service'
 const getAllTasks = Object.freeze<ServerRoute>({
 	method: 'GET',
 	path: '/',
-	handler: (req, _h) => {
+	handler: async (req, _h) => {
 		const mongo = req.mongo
 	return getAll(mongo)
 	}
@@ -25,7 +25,7 @@ const getAllTasks = Object.freeze<ServerRoute>({
 const getOneTask = Object.freeze<ServerRoute>({
 	method: 'GET',
 	path: '/{id}',
-	handler: (req, _h) => {
+	handler: async (req, _h) => {
 		const mongo = req.mongo
 		const id = req.params.id
 	return getOne(mongo, id)
@@ -120,3 +120,5 @@ const getSearch = Object.freeze<ServerRoute>({
  * Routes of the plugin `todolist`
  */
 export default [getAllTasks, getOneTask, deleteTask, postTask, putTask, getSearch]
+
+
