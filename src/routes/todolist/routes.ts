@@ -32,6 +32,19 @@ const getOneTask = Object.freeze<ServerRoute>({
 	}
 })
 
+/**
+ * Delete a task from the database
+ * @handle `DELETE /{id}`
+ */
+const deleteTask = Object.freeze<ServerRoute>({
+	method: 'DELETE',
+	path: '/{id}',
+	handler: async (req, _h) => {
+		const mongo = req.mongo
+		const id = req.params.id
+	return removeTask(mongo, id)
+	}
+})
 
 
 /** Add a new task to the database
@@ -60,19 +73,6 @@ const postTask = Object.freeze<ServerRoute>({
   },
 })
 
-/**
- * Delete a task from the database
- * @handle `DELETE /{id}`
- */
-const deleteTask = Object.freeze<ServerRoute>({
-	method: 'DELETE',
-	path: '/{id}',
-	handler: async (req, _h) => {
-		const mongo = req.mongo
-		const id = req.params.id
-	return removeTask(mongo, id)
-	}
-})
 
 /**
  * Replace a task

@@ -2,18 +2,18 @@ import { HapiMongo } from "hapi-mongodb"
 import { z } from "zod";
 
 
-export const getAll = async (mongo: HapiMongo) => mongo.db
+export const getAll = (mongo: HapiMongo) => mongo.db
 .collection('Todo-List')
 .find({})
 .toArray()
 
 
-export const getOne = async (mongo: HapiMongo, id: string) => mongo.db
+export const getOne = (mongo: HapiMongo, id: string) => mongo.db
 .collection('Todo-List')
-.findOne({_id: new mongo.ObjectID(id)},{projection:{description:1}})
+.findOne({_id: new mongo.ObjectID(id)}, {projection})
 
 
-export const removeTask = async (mongo: HapiMongo, id: string) => mongo.db
+export const removeTask = (mongo: HapiMongo, id: string) => mongo.db
 .collection('Todo-List')
 .deleteOne({_id: new mongo.ObjectID(id)})
 
