@@ -49,24 +49,22 @@ const deleteTask = Object.freeze<ServerRoute>({
 const postTask = Object.freeze<ServerRoute>({
 	method: 'POST',
 	path: '/',
-  	options: {
-    	validate: {
-      	payload: (v: unknown) => Task.parseAsync(v),
-    	},
-  	},
-  handler: async (req: Request<{Payload: Task}>, h) => {
-    // get data from request
-    const mongo = req.mongo
-    const task = req.payload
-
-    // call handler (request-agnostic)
-    const res = await create(mongo, task)
-    return h.response(res)
-      .code(201)
-      .header('location', `${req.url}/${res.insertedId}`)
-
-    // refer to https://www.rfc-editor.org/rfc/rfc9110.html#name-location
-  },
+	options: {
+		validate: {
+			payload: (v: unknown) => Task.parseAsync(v),
+		},
+	},
+	handler: async (req: Request<{Payload: Task}>, h) => {
+// get data from request
+		const mongo = req.mongo
+		const task = req.payload
+// call handler (request-agnostic)
+		const res = await create(mongo, task)
+		return h.response(res)
+		.code(201)
+		.header('location', `${req.url}/${res.insertedId}`)
+// refer to https://www.rfc-editor.org/rfc/rfc9110.html#name-location
+	},
 })
 
 
@@ -78,18 +76,18 @@ const putTask = Object.freeze<ServerRoute>({
 	method: 'PUT',
 	path: '/{id}',
 	options: {
-	  validate: {
-		payload: (v: unknown) => Task.parseAsync(v),
-	  },
+		validate: {
+			payload: (v: unknown) => Task.parseAsync(v),
+		},
 	},
 	handler: async (req: Request<{Payload: Task}>, h) => {
-	  // get data from request
-	  const mongo = req.mongo
-	  const id = req.params.id
-	  const task = req.payload
+// get data from request
+		const mongo = req.mongo
+		const id = req.params.id
+		const task = req.payload
   
-	  // call handler (request-agnostic)
-	  return update(mongo, id, task)
+// call handler (request-agnostic)
+		return update(mongo, id, task)
 	},
 })
 
@@ -101,14 +99,13 @@ const getSearch = Object.freeze<ServerRoute>({
 	method: 'GET',
 	path: '/search',
 	handler: async (req, _h) => {
-	  // get data from request
-	  const mongo = req.mongo
-	  const term = req.query.term
-  
-	  // call handler (request-agnostic)
-	  return search(mongo, term)
+// get data from request
+		const mongo = req.mongo
+		const term = req.query.term
+// call handler (request-agnostic)
+		return search(mongo, term)
 	},
-  })
+})
 
 
 

@@ -43,13 +43,12 @@ afterEach(() => { jest.resetAllMocks() })
 describe ('route GET /', () => {
 	const method = 'GET'
 	const url = '/'
-  
-it('exists and calls expected handler', async () => {
-	  const res = await server.inject({method, url})
-  
-	  expect(res.statusCode).toEqual(200)
-	  expect(res.result).toEqual(fakeGetAll)
-	}) 
+
+	it('exists and calls expected handler', async () => {
+		const res = await server.inject({method, url})
+		expect(res.statusCode).toEqual(200)
+		expect(res.result).toEqual(fakeGetAll)
+	})
 })
 
 
@@ -59,110 +58,109 @@ describe('route GET /{id}', () => {
 	const method = 'GET'
 	const url = `/${id}`
 	
-it('exists and calls expected handler', async () => {
-	  const res = await server.inject({method, url})
-	
-	  expect(res.statusCode).toEqual(200)
-	  expect(res.result).toEqual(fakeGetOne)
+	it('exists and calls expected handler', async () => {
+		const res = await server.inject({method, url})
+		expect(res.statusCode).toEqual(200)
+		expect(res.result).toEqual(fakeGetOne)
 	})
 })
 
 // Testing route DELETE
-// describe('route DELETE /{id}', () => {
-// 	const id = chance.guid()
-// 	const method = 'DELETE'
-// 	const url = `/${id}`
+describe('route DELETE /{id}', () => {
+	const id = chance.guid()
+	const method = 'DELETE'
+	const url = `/${id}`
 
-// 	it('exists and calls expected handler', async () => {
-// 	  const res = await server.inject({method, url})
-// 	  expect(res.statusCode).toEqual(200)
-// 	  expect(res.result).toEqual(fakeDeleteOne)
-// 	})
-// })
+	it('exists and calls expected handler', async () => {
+		const res = await server.inject({method, url})
+		expect(res.statusCode).toEqual(200)
+		expect(res.result).toEqual(fakeDeleteOne)
+	})
+})
 
 
 // Testing route POST
-// describe('route POST /', () => {
-// 	const method = 'POST'
-// 	const url = '/'
-// 	const validObj: service.Task = {
-// 	  description: chance.string(),
-// 	  done: chance.bool(),
-// 	  dueDate: chance.date(),
-// 	}
-// 	it('exists and calls expected handler', async () => {
-// 	  const payload = JSON.stringify(validObj)
-// 	  const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(201)
-// 	  expect(res.result).toEqual(fakePostOne)
-// 	})
-// 	it('validates payload', async () => {
-// 	  const errorObjDescription = {...validObj, description: false}
-// 	  const payload = JSON.stringify(errorObjDescription)
-// 	  const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(400)
-// 	})
-// 	it('validates payload', async () => {
-// 	  const errorObjDone = {...validObj, done: 'potato'}
-// 	  const payload = JSON.stringify(errorObjDone)
-  
-//   const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(400)
-// 	})
-// 	it('validates payload', async () => {
-// 	  const errorObjDueDate = {...validObj, dueDate: 'potato'}
-// 	  const payload = JSON.stringify(errorObjDueDate)
-// 	  const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(400)
-// 	})
-//   })
+describe('route POST /', () => {
+	const method = 'POST'
+	const url = '/'
+	const validObj: service.Task = {
+		description: chance.string(),
+		done: chance.bool(),
+		dueDate: chance.date(),
+	}
+	it('exists and calls expected handler', async () => {
+		const payload = JSON.stringify(validObj)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(201)
+		expect(res.result).toEqual(fakePostOne)
+	})
+	it('validates payload', async () => {
+		const errorObjDescription = {...validObj, description: false}
+		const payload = JSON.stringify(errorObjDescription)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(400)
+	})
+	it('validates payload', async () => {
+		const errorObjDone = {...validObj, done: 'potato'}
+		const payload = JSON.stringify(errorObjDone)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(400)
+	})
+	it('validates payload', async () => {
+		const errorObjDueDate = {...validObj, dueDate: 'potato'}
+		const payload = JSON.stringify(errorObjDueDate)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(400)
+	})
+})
 
 
 // Testing route PUT
-// describe('route PUT /{id}', () => {
-// 	const id = chance.guid()
-// 	const method = 'PUT'
-// 	const url = `/${id}`
-// 	const validObj: service.Task = {
-// 	  description: chance.string(),
-// 	  done: chance.bool(),
-// 	  dueDate: chance.date(),
-// 	}
-// 	it('exists and calls expected handler', async () => {
-// 	  const payload = JSON.stringify(validObj)
-// 	  const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(200)
-// 	  expect(res.result).toEqual(fakePutOne)
-// 	})
-// 	it('validates payload', async () => {
-// 	  const errorObjDescription = {...validObj, description: false}
-// 	  const payload = JSON.stringify(errorObjDescription)
-// 	  const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(400)
-// 	})
-// 	it('validates payload', async () => {
-// 	  const errorObjDone = {...validObj, done: 'potato'}
-// 	  const payload = JSON.stringify(errorObjDone)
-// 	  const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(400)
-// 	})
-// 	it('validates payload', async () => {
-// 	  const errorObjDueDate = {...validObj, dueDate: 'potato'}
-// 	  const payload = JSON.stringify(errorObjDueDate)
-// 	  const res = await server.inject({method, url, payload})
-// 	  expect(res.statusCode).toEqual(400)
-// 	})
-// })
+describe('route PUT /{id}', () => {
+	const id = chance.guid()
+	const method = 'PUT'
+	const url = `/${id}`
+	const validObj: service.Task = {
+		description: chance.string(),
+		done: chance.bool(),
+		dueDate: chance.date(),
+	}
+	it('exists and calls expected handler', async () => {
+		const payload = JSON.stringify(validObj)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(200)
+		expect(res.result).toEqual(fakePutOne)
+	})
+	it('validates payload', async () => {
+		const errorObjDescription = {...validObj, description: false}
+		const payload = JSON.stringify(errorObjDescription)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(400)
+	})
+	it('validates payload', async () => {
+		const errorObjDone = {...validObj, done: 'potato'}
+		const payload = JSON.stringify(errorObjDone)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(400)
+	})
+	it('validates payload', async () => {
+		const errorObjDueDate = {...validObj, dueDate: 'potato'}
+		const payload = JSON.stringify(errorObjDueDate)
+		const res = await server.inject({method, url, payload})
+		expect(res.statusCode).toEqual(400)
+	})
+})
 
 
 
 // Testing route SEARCH GET
-// describe('route GET /search', () => {
-// 	const method = 'GET'
-// 	const url = '/search'
-// 	it('exists and calls expected handler', async () => {
-// 	  const res = await server.inject({method, url})
-// 	  expect(res.statusCode).toEqual(200)
-// 	  expect(res.result).toEqual(fakeSearch)
-// 	})
-// })
+describe('route GET /search', () => {
+	const method = 'GET'
+	const url = '/search'
+
+	it('exists and calls expected handler', async () => {
+	const res = await server.inject({method, url})
+		expect(res.statusCode).toEqual(200)
+		expect(res.result).toEqual(fakeSearch)
+	})
+})

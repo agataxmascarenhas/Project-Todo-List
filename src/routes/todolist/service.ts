@@ -23,8 +23,8 @@ export const Task = z.object({
 	description: z.string(),
 	done: z.boolean(),
 	dueDate: z.coerce.date(),
-	// year: z.number().int().min(1890),
-  })
+// year: z.number().int().min(1890),
+	})
 export type Task = z.infer<typeof Task>
 
 // Add a new task to the database POST
@@ -40,23 +40,23 @@ export const update = (mongo: HapiMongo, id: string, task: Task) => mongo.db
 
 //Search database tasks GET
 export const search = (mongo: HapiMongo, query: string) => mongo.db
-  .collection('Todo-List')
-  .aggregate([
-    {
-      $searchBeta: {
-        search: {
-          query: query,
-          path: 'description',
-        },
-      },
-    },
-    {$project: projection},
-    {$limit: 10},
-  ]).toArray()
+.collection('Todo-List')
+.aggregate([
+	{
+		$searchBeta: {
+		search: {
+			query: query,
+			path: 'description',
+		},
+		},
+	},
+	{$project: projection},
+	{$limit: 10},
+])
+.toArray()
 
 
-  // const projection = {description: 1}
+// const projection = {description: 1}
 const projection = Object.fromEntries(
-  Object.keys(Task.shape)
-    .map(k => [k, 1]),
+	Object.keys(Task.shape).map(k => [k, 1]),
 )

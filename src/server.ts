@@ -22,24 +22,24 @@ import todolist from './routes/todolist'
  */
 export default async (options?: Hapi.ServerOptions): Promise<Readonly<Hapi.Server>> => {
 
-  const server = Hapi.server(options)
+	const server = Hapi.server(options)
 
-  await Promise.all([
-    server.register(pluginLogger),
-    server.register(pluginAuthBasic),
-	server.register(pluginMongo),
-  ])
+	await Promise.all([
+		server.register(pluginLogger),
+		server.register(pluginAuthBasic),
+		server.register(pluginMongo),
+	])
 
-  await Promise.all([
-    server.register(hello, {routes: {prefix: '/api/hello'}}),
-    server.register(health, {routes: {prefix: '/api/health'}}),
-    server.register(validated, {routes: {prefix: '/api/validated'}}),
-    server.register(authBasic, {routes: {prefix: '/api/auth-basic'}}),
-	server.register(movies, {routes: {prefix: '/api/movies'}}),
-	server.register(todolist, {routes: {prefix: '/api/todolist'}}),
-  ])
+	await Promise.all([
+		server.register(hello, {routes: {prefix: '/api/hello'}}),
+		server.register(health, {routes: {prefix: '/api/health'}}),
+		server.register(validated, {routes: {prefix: '/api/validated'}}),
+		server.register(authBasic, {routes: {prefix: '/api/auth-basic'}}),
+		server.register(movies, {routes: {prefix: '/api/movies'}}),
+		server.register(todolist, {routes: {prefix: '/api/todolist'}}),
+	])
 
-  await server.initialize()
+	await server.initialize()
 
-  return server
+	return server
 }
