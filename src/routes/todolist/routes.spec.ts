@@ -6,7 +6,6 @@ import { makeChance } from '../../lib/chance'
 const server = Hapi.server()
 const chance = makeChance()
 
-
 const fakeGetAll = chance.string()
 const fakeGetOne = chance.string()
 const fakeDeleteOne = chance.string()

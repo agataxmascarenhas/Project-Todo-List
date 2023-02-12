@@ -11,5 +11,4 @@ export default Object.freeze<Plugin<void>>({
   version: '1.0.0',
 //register: (server: Server, options: T) => void | Promise<void>;
   register: server => server.route(routes), //faz referencia ao ficheiro routes.ts
- 
 })

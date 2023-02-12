@@ -1,10 +1,6 @@
 import type {ServerRoute, Request} from '@hapi/hapi'
 
-import { getAll, getOne, removeTask} from './service'
-import { Task } from './service'
-import { create } from './service'
-import { update } from './service'
-import { search } from './service'
+import {getAll, getOne, removeTask, Task, create, update, search} from './service'
 
 
 /** Get All Tasks
