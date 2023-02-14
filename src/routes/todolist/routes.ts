@@ -1,5 +1,4 @@
 import type {ServerRoute, Request} from '@hapi/hapi'
-
 import {getAll, getOne, removeTask, Task, create, update, search} from './service'
 
 
@@ -10,8 +9,13 @@ const getAllTasks = Object.freeze<ServerRoute>({
 	method: 'GET',
 	path: '/',
 	handler: async (req, _h) => {
+//request object
 		const mongo = req.mongo
-	return getAll(mongo)
+//path parameters
+		const offset = Number(req.query.offset) || 0
+		const pageSize = Number(req.query.pageSize) || 10
+
+		return getAll(mongo, offset, pageSize)
 	}
 })
 
@@ -23,6 +27,7 @@ const getOneTask = Object.freeze<ServerRoute>({
 	path: '/{id}',
 	handler: async (req, _h) => {
 		const mongo = req.mongo
+//path parameters
 		const id = req.params.id
 	return getOne(mongo, id)
 	}
@@ -85,7 +90,7 @@ const putTask = Object.freeze<ServerRoute>({
 		const mongo = req.mongo
 		const id = req.params.id
 		const task = req.payload
-  
+
 // call handler (request-agnostic)
 		return update(mongo, id, task)
 	},

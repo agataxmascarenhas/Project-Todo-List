@@ -2,9 +2,12 @@ import { HapiMongo } from "hapi-mongodb"
 import { z } from "zod";
 
 
-export const getAll = (mongo: HapiMongo) => mongo.db
+export const getAll = (mongo: HapiMongo, offset: number, pageSize: number) => mongo.db
 .collection('Todo-List')
 .find({})
+.sort({ description: 1})
+.skip(offset)
+.limit(pageSize)
 .toArray()
 
 
